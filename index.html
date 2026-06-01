@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+<title>Tracker</title>
+<meta name="theme-color" content="#2563eb" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Tracker" />
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEWUlEQVR42u3csY6MURzG4fmOTTQSDS2FcBGi4A5sa0sui3KVuANbuAobhW1J1AqhUllhdr7znXPe8/xKEWZnn3nzX3Zn2XXQ/edffu40fOevbi+tH8MCsJKALxArCfcCsZJwLyArCXaBWUn/GLCArKS1LjAraa0XkJW01gVmJa11gVlJqAvMSkJdYFYS6gKzklAXmJWEusCsJNTF06SkinVW0koXmJWE2smh/JPDOmvUlS4wKwm1k0O5J4d11ugrbaGV/0WhNDxo54YSzg4LLSeH1DVo54ZSzg4LLSeHBLS0QYv7WRZaAloCWgJaQEtAS0BLQEtAC2gJaAloCWgJaAEtAS0BLQEtAa0pOvIU6HcfX97649cevPg61Mfgh2R1KeRRYTs5YF719wGt7jGPhBpomKNQAw1zVEDDHPWCABpmCy0BLesMtGAGWpUx9/y/hkDDbKE1L+bev6cDaJhjMAMNcxTm3c73Q8McAtlCKw4z0NY5LqBhjllnoGGOwgw0zFGYgYY5CjPQMEdhBhrmKMxAKwoz0JOvcxpmoCc/NRID2t0MtGAGWjADDTPM+3WU+Ikf/RMH89Ub9v2hk97TGObJT4609zSu2UyYhwSd+J7GXoCTgk59T2OnxuQnRxpqmCcEnfq+xjBb6BjUMAMdgxpmoGNQwwx0DGqYga76SRv9335httDNUPuPE6A3W6Pa2Jwa29TFNyd9//ThZJ/f//n909Naj+Xuk3cna/+ZNR5vjcd5aNfvPTqdEvS+gEdGPQvmXoBvBnoNxKOhnhlzK9xVQddAPApqmNvgrgJ6C8g9o4a5HewyOuban+yaL5aZMdeystpCt4Dc41Kv/RhSMdda65KCuYel7mHNZ1/rgxa6F8g9LLW7uY+1LmmYWyw1zP2sdUnDvDVqmPtCvffJMQLmke9amA87P0oy5tGAwHy4uZKMeSQoMK9jr6RjHgEMzOsZLDNgBmce1NP9xEpvqL3I1q3Mss49IoJ5/ZUus2HuBRPMdVBP/UOyrVDBvPHJkb7OLXHBXHely8yYt0YGc33U3pdjI2wwNzg5ZlznLdDBvN1KW2j48r8ohHo91F4gjUDPfm7UgAjz9meHhQbSyQG1F0PXoJ0b6+KEud3ZYaFXRgpz2448BfujvuznFEEG2heLWr1rN24+PPc0KKEf3y7euKEVFdACWgJaAloCWkBLQEtAS0BLQAtoCWgJaKkO6Iuz49eeBiV0cXb82kLLySEBLW0F2h2thPvZQsvJIQ0B2tmh0c8NCy0nhzQMaGeHRj43LLTyTw4rrVHX+a8LDbVGxOzkUP7JYaU16jr/c6Gh1kiYnRya5+Sw0hptnf97oaHWCJj3OjmgVu+Y976hoVbPmK/0RSHU6hXzlUBDrV4xXxk01OoR82632y1rPIA7j98+82lQS8gHL7S1Vm+YV1toa61exrD0/gAFc9OFttZqOXrLVh8E3BBv8fcsLT44uCGOAg04wLX6BZP/mlmL1GrzAAAAAElFTkSuQmCC" />
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEWUlEQVR42u3csY6MURzG4fmOTTQSDS2FcBGi4A5sa0sui3KVuANbuAobhW1J1AqhUllhdr7znXPe8/xKEWZnn3nzX3Zn2XXQ/edffu40fOevbi+tH8MCsJKALxArCfcCsZJwLyArCXaBWUn/GLCArKS1LjAraa0XkJW01gVmJa11gVlJqAvMSkJdYFYS6gKzklAXmJWEusCsJNTF06SkinVW0koXmJWE2smh/JPDOmvUlS4wKwm1k0O5J4d11ugrbaGV/0WhNDxo54YSzg4LLSeH1DVo54ZSzg4LLSeHBLS0QYv7WRZaAloCWgJaQEtAS0BLQEtAC2gJaAloCWgJaAEtAS0BLQEtAa0pOvIU6HcfX97649cevPg61Mfgh2R1KeRRYTs5YF719wGt7jGPhBpomKNQAw1zVEDDHPWCABpmCy0BLesMtGAGWpUx9/y/hkDDbKE1L+bev6cDaJhjMAMNcxTm3c73Q8McAtlCKw4z0NY5LqBhjllnoGGOwgw0zFGYgYY5CjPQMEdhBhrmKMxAKwoz0JOvcxpmoCc/NRID2t0MtGAGWjADDTPM+3WU+Ikf/RMH89Ub9v2hk97TGObJT4609zSu2UyYhwSd+J7GXoCTgk59T2OnxuQnRxpqmCcEnfq+xjBb6BjUMAMdgxpmoGNQwwx0DGqYga76SRv9335httDNUPuPE6A3W6Pa2Jwa29TFNyd9//ThZJ/f//n909Naj+Xuk3cna/+ZNR5vjcd5aNfvPTqdEvS+gEdGPQvmXoBvBnoNxKOhnhlzK9xVQddAPApqmNvgrgJ6C8g9o4a5HewyOuban+yaL5aZMdeystpCt4Dc41Kv/RhSMdda65KCuYel7mHNZ1/rgxa6F8g9LLW7uY+1LmmYWyw1zP2sdUnDvDVqmPtCvffJMQLmke9amA87P0oy5tGAwHy4uZKMeSQoMK9jr6RjHgEMzOsZLDNgBmce1NP9xEpvqL3I1q3Mss49IoJ5/ZUus2HuBRPMdVBP/UOyrVDBvPHJkb7OLXHBXHely8yYt0YGc33U3pdjI2wwNzg5ZlznLdDBvN1KW2j48r8ohHo91F4gjUDPfm7UgAjz9meHhQbSyQG1F0PXoJ0b6+KEud3ZYaFXRgpz2448BfujvuznFEEG2heLWr1rN24+PPc0KKEf3y7euKEVFdACWgJaAloCWkBLQEtAS0BLQAtoCWgJaKkO6Iuz49eeBiV0cXb82kLLySEBLW0F2h2thPvZQsvJIQ0B2tmh0c8NCy0nhzQMaGeHRj43LLTyTw4rrVHX+a8LDbVGxOzkUP7JYaU16jr/c6Gh1kiYnRya5+Sw0hptnf97oaHWCJj3OjmgVu+Y976hoVbPmK/0RSHU6hXzlUBDrV4xXxk01OoR82632y1rPIA7j98+82lQS8gHL7S1Vm+YV1toa61exrD0/gAFc9OFttZqOXrLVh8E3BBv8fcsLT44uCGOAg04wLX6BZP/mlmL1GrzAAAAAElFTkSuQmCC" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#2563eb; --primary-d:#1e40af; --ink:#0f172a; --sub:#64748b;
+  --track:#e2e8f0; --good:#16a34a; --light:#dbeafe; --line:#e7ecf3; --card:#fff;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:Manrope,ui-sans-serif,system-ui,sans-serif; color:var(--ink);
+  min-height:100vh;
+  background:radial-gradient(1200px 600px at 100% -10%, #dbeafe 0%, transparent 55%), linear-gradient(180deg,#f1f5f9,#eef2f7);
+  background-attachment:fixed;
+}
+.num{font-family:Sora,sans-serif;}
+button{cursor:pointer; font-family:inherit; border:none; background:none;}
+input,textarea{font-family:inherit;}
+header{position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
+  background:rgba(255,255,255,.8); border-bottom:1px solid var(--track);
+  padding-top:env(safe-area-inset-top);}
+.head-in{max-width:960px; margin:0 auto; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;}
+.brand{display:flex; align-items:center; gap:10px;}
+.logo{width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,var(--primary),var(--primary-d));
+  display:grid; place-items:center; color:#fff; font-weight:800;}
+.brand .t{font-family:Sora; font-weight:800; font-size:17px; letter-spacing:-.3px;}
+.brand .s{font-size:11px; color:var(--sub); margin-top:-2px;}
+.desk-tabs{display:flex; gap:4px;}
+.desk-tabs button{display:flex; align-items:center; gap:6px; padding:8px 12px; border-radius:10px; color:var(--sub); font-weight:600; font-size:13px;}
+.desk-tabs button.on{background:var(--primary); color:#fff;}
+main{max-width:960px; margin:0 auto; padding:20px 16px 110px;}
+.grid{display:grid; gap:16px;}
+.card{background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 1px 3px rgba(15,23,42,.05);}
+.pad{padding:18px;}
+.sect{font-family:Sora; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--sub); margin:0 0 10px;}
+.row{display:flex; align-items:center;}
+.navbtn{width:38px; height:38px; border-radius:10px; border:1px solid var(--track); background:#fff; display:grid; place-items:center; color:var(--ink);}
+.ring{position:relative;}
+.ring .c{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+.habit-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px;}
+.habit{text-align:left; padding:14px; border-radius:16px; border:1px solid var(--line); background:#fff; transition:all .15s; display:flex; flex-direction:column; gap:10px;}
+.habit.on{border:2px solid var(--primary); background:#eff6ff;}
+.habit .top{display:flex; justify-content:space-between; align-items:center;}
+.habit .em{font-size:22px;}
+.chk{width:24px; height:24px; border-radius:8px; display:grid; place-items:center; background:#eef2f7; color:#fff;}
+.habit.on .chk{background:var(--primary);}
+.habit .nm{font-weight:700; font-size:14px; line-height:1.2;}
+.inp{flex:1; padding:10px 12px; border-radius:10px; border:1px solid #d8e0ea; font-size:14px; outline:none;}
+.addbtn{background:var(--primary); color:#fff; border-radius:10px; padding:0 14px; display:grid; place-items:center;}
+.todo{display:flex; align-items:center; gap:10px; padding:8px 4px;}
+.tbox{width:22px; height:22px; border-radius:7px; border:2px solid #cbd5e1; background:#fff; display:grid; place-items:center; color:#fff; flex-shrink:0;}
+.tbox.on{border:none; background:var(--good);}
+.del{color:#cbd5e1; padding:4px;}
+.bar{height:8px; border-radius:6px; background:var(--track); overflow:hidden;}
+.bar > div{height:100%; background:linear-gradient(90deg,var(--primary),var(--primary-d)); transition:width .5s;}
+table{width:100%; border-collapse:collapse; font-size:13px;}
+th{color:var(--sub); font-weight:700; padding:6px 4px;}
+td{padding:6px 4px;}
+.month-wrap{overflow-x:auto;}
+.cellbtn{width:22px; height:22px; border-radius:6px; border:1px solid #e2e8f0; background:#f8fafc; color:#fff; display:grid; place-items:center;}
+.cellbtn.on{border:none; background:var(--primary);}
+.sticky-l{position:sticky; left:0; background:#fff;}
+nav.mob{position:fixed; bottom:0; left:0; right:0; z-index:30; background:rgba(255,255,255,.93);
+  backdrop-filter:blur(10px); border-top:1px solid var(--track); display:flex; justify-content:space-around;
+  padding:8px 4px calc(8px + env(safe-area-inset-bottom));}
+nav.mob button{flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--sub); padding:4px 0; font-size:10px; font-weight:600;}
+nav.mob button.on{color:var(--primary);}
+.muted{font-size:13px; color:var(--sub);}
+.btn-dark{display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:#fff; border-radius:10px; padding:10px 16px; font-weight:700; font-size:14px;}
+.svgi{width:1em; height:1em; display:inline-block; vertical-align:-2px;}
+@media (max-width:640px){ .desk-tabs{display:none;} }
+@media (min-width:641px){ nav.mob{display:none;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="brand">
+      <div class="logo">✓</div>
+      <div><div class="t">Tracker</div><div class="s">návyky · úkoly · projekt</div></div>
+    </div>
+    <div class="desk-tabs" id="deskTabs"></div>
+  </div>
+</header>
+<main><div id="view" class="grid"></div></main>
+<nav class="mob" id="mobNav"></nav>
+
+<script>
+/* ===== icons (inline svg) ===== */
+const I = {
+  home:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>',
+  cal:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>',
+  bar:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>',
+  rocket:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13c-1 3-1 5-1 5s2 0 5-1"/><path d="M9 15l-3-3c5-9 12-9 12-9s0 7-9 12z"/><circle cx="14.5" cy="9.5" r="1.5"/></svg>',
+  gear:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2l-.3-2.5h-4l-.3 2.5a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.3 2.5h4l.3-2.5a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg>',
+  chevL:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  chevR:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
+  check:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg>',
+  plus:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  trash:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>',
+  flame:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s5 4 5 9a5 5 0 0 1-10 0c0-1 .5-2 1-2.5C8 12 9 13 9 13s-1-4 3-10z"/></svg>',
+  dl:'<svg class="svgi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l4-4m-4 4l-4-4M4 21h16"/></svg>',
+};
+
+/* ===== data ===== */
+const KEY='habit-tracker-v1';
+const uid=()=>Math.random().toString(36).slice(2,9);
+const DEFAULT={ version:1,
+  habits:[
+    {id:'h1',name:'Učení',emoji:'📚'},
+    {id:'h2',name:'Čtení (10 stran)',emoji:'📖'},
+    {id:'h3',name:'Angličtina',emoji:'🇬🇧'},
+    {id:'h4',name:'Meditace',emoji:'🧘'},
+    {id:'h5',name:'Běh (2 km)',emoji:'🏃'},
+    {id:'h6',name:'Cvičení / sport',emoji:'💪'},
+  ],
+  log:{},
+  project:{name:'Můj projekt',phases:[
+    {id:'p1',name:'Návrh',done:false},
+    {id:'p2',name:'Nákup dílů',done:false},
+    {id:'p3',name:'Stavba',done:false},
+    {id:'p4',name:'Testování',done:false},
+  ]},
+};
+function load(){ try{ const r=localStorage.getItem(KEY); if(r){ const s=JSON.parse(r);
+  return {...DEFAULT,...s, project:{...DEFAULT.project,...(s.project||{})}, log:s.log||{}, habits:s.habits||DEFAULT.habits}; } }catch(e){} return JSON.parse(JSON.stringify(DEFAULT)); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
+let data=load(), tab='dnes';
+
+/* ===== dates ===== */
+const pad=n=>String(n).padStart(2,'0');
+const fmt=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=()=>{const d=new Date(); d.setHours(0,0,0,0); return d;};
+const addDays=(d,n)=>{const x=new Date(d); x.setDate(x.getDate()+n); return x;};
+const startOfWeek=d=>{const x=new Date(d); const w=(x.getDay()+6)%7; x.setDate(x.getDate()-w); x.setHours(0,0,0,0); return x;};
+const DOW=['Po','Út','St','Čt','Pá','So','Ne'];
+const MONTHS=['leden','únor','březen','duben','květen','červen','červenec','srpen','září','říjen','listopad','prosinec'];
+let sel=fmt(today()), mref=today(), wref=startOfWeek(today());
+
+/* ===== derived ===== */
+const entry=k=>data.log[k]||{done:{},todos:[],note:''};
+const isDone=(k,id)=>!!(data.log[k]&&data.log[k].done&&data.log[k].done[id]);
+const dayCount=k=>data.habits.reduce((n,h)=>n+(isDone(k,h.id)?1:0),0);
+function streak(id){ let s=0,d=today(); if(!isDone(fmt(d),id)) d=addDays(d,-1); while(isDone(fmt(d),id)){s++; d=addDays(d,-1);} return s; }
+
+/* ===== mutations ===== */
+function ensure(k){ if(!data.log[k]) data.log[k]={done:{},todos:[],note:''}; if(!data.log[k].done)data.log[k].done={}; if(!data.log[k].todos)data.log[k].todos=[]; }
+function toggleHabit(k,id){ ensure(k); if(data.log[k].done[id]) delete data.log[k].done[id]; else data.log[k].done[id]=true; save(); render(); }
+function addTodo(k,text){ if(!text.trim())return; ensure(k); data.log[k].todos.push({id:uid(),text:text.trim(),done:false}); save(); render(); }
+function toggleTodo(k,id){ ensure(k); const t=data.log[k].todos.find(x=>x.id===id); if(t)t.done=!t.done; save(); render(); }
+function delTodo(k,id){ ensure(k); data.log[k].todos=data.log[k].todos.filter(x=>x.id!==id); save(); render(); }
+function setNote(k,v){ ensure(k); data.log[k].note=v; save(); }
+function addHabit(name,emoji){ if(!name.trim())return; data.habits.push({id:uid(),name:name.trim(),emoji:emoji||'✅'}); save(); render(); }
+function delHabit(id){ data.habits=data.habits.filter(h=>h.id!==id); save(); render(); }
+function editHabit(id,f,v){ const h=data.habits.find(x=>x.id===id); if(h)h[f]=v; save(); }
+function addPhase(name){ if(!name.trim())return; data.project.phases.push({id:uid(),name:name.trim(),done:false}); save(); render(); }
+function togglePhase(id){ const p=data.project.phases.find(x=>x.id===id); if(p)p.done=!p.done; save(); render(); }
+function delPhase(id){ data.project.phases=data.project.phases.filter(x=>x.id!==id); save(); render(); }
+function exportData(){ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=u; a.download='tracker-zaloha-'+fmt(today())+'.json'; a.click(); URL.revokeObjectURL(u); }
+
+/* ===== ring ===== */
+function ring(value,max,size,stroke,color,inner){
+  const r=(size-stroke)/2, c=2*Math.PI*r, pct=max>0?Math.min(1,value/max):0, off=c*(1-pct);
+  color=color||'var(--primary)';
+  return `<div class="ring" style="width:${size}px;height:${size}px">
+    <svg width="${size}" height="${size}" style="transform:rotate(-90deg)">
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--track)" stroke-width="${stroke}"/>
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}"
+        stroke-dasharray="${c}" stroke-dashoffset="${off}" stroke-linecap="round" style="transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)"/>
+    </svg><div class="c">${inner}</div></div>`;
+}
+const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+/* ===== views ===== */
+function vDnes(){
+  const d=new Date(sel+'T00:00:00'); const e=entry(sel); const done=dayCount(sel); const total=data.habits.length;
+  const isT=sel===fmt(today());
+  const label=isT?'Dnes':DOW[(d.getDay()+6)%7]+' '+d.getDate()+'. '+(d.getMonth()+1)+'.';
+  const pct=total?Math.round(done/total*100):0;
+  return `
+  <div class="card pad">
+    <div class="row" style="justify-content:space-between; margin-bottom:14px">
+      <button class="navbtn" data-act="day" data-n="-1">${I.chevL}</button>
+      <div style="text-align:center"><div class="num" style="font-weight:800;font-size:18px">${label}</div>
+        <div class="muted">${d.getDate()}. ${MONTHS[d.getMonth()]} ${d.getFullYear()}</div></div>
+      <button class="navbtn" data-act="day" data-n="1">${I.chevR}</button>
+    </div>
+    <div class="row" style="gap:22px; justify-content:center; flex-wrap:wrap">
+      ${ring(done,total,132,13,null,`<div class="num" style="font-size:30px;font-weight:800">${pct}%</div><div class="muted">${done}/${total} hotovo</div>`)}
+      <div style="flex:1; min-width:180px">
+        ${!isT?`<button class="navbtn" data-act="today" style="width:auto;padding:6px 12px;font-size:12px;font-weight:700;margin-bottom:10px">← Skoč na dnešek</button>`:''}
+        <div class="muted">${done===total&&total>0?'🎉 Všechno splněno, paráda!':'Zbývá '+(total-done)+' návyk(ů).'}</div>
+      </div>
+    </div>
+  </div>
+
+  <div><div class="sect">Návyky</div><div class="habit-grid">
+    ${data.habits.map(h=>{const on=isDone(sel,h.id); return `
+      <button class="habit ${on?'on':''}" data-act="toggle" data-date="${sel}" data-id="${h.id}">
+        <div class="top"><span class="em">${h.emoji}</span><span class="chk">${on?I.check:''}</span></div>
+        <span class="nm">${esc(h.name)}</span></button>`;}).join('')}
+  </div></div>
+
+  <div class="card pad">
+    <div class="sect">Jednorázové úkoly</div>
+    <div class="row" style="gap:8px; margin-bottom:12px">
+      <input id="todoInput" class="inp" placeholder="Např. sraz, test z chemie, doktor…" />
+      <button class="addbtn" data-act="addtodo" data-date="${sel}">${I.plus}</button>
+    </div>
+    ${e.todos.length===0?'<div class="muted">Žádné úkoly na tento den.</div>':''}
+    <div class="grid" style="gap:6px">
+      ${e.todos.map(t=>`<div class="todo">
+        <button class="tbox ${t.done?'on':''}" data-act="ttodo" data-date="${sel}" data-id="${t.id}">${t.done?I.check:''}</button>
+        <span style="flex:1;font-size:14px;${t.done?'text-decoration:line-through;color:var(--sub)':''}">${esc(t.text)}</span>
+        <button class="del" data-act="dtodo" data-date="${sel}" data-id="${t.id}">${I.trash}</button></div>`).join('')}
+    </div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+    <div class="card pad"><div class="sect">Poznámka</div>
+      <textarea data-act="note" data-date="${sel}" rows="3" placeholder="Jak šel den…" style="width:100%;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;outline:none">${esc(e.note)}</textarea></div>
+    <div class="card pad row" style="gap:16px">
+      ${ring(data.project.phases.filter(p=>p.done).length,data.project.phases.length,84,9,'var(--primary-d)',`<div class="num" style="font-size:16px;font-weight:800">${data.project.phases.length?Math.round(data.project.phases.filter(p=>p.done).length/data.project.phases.length*100):0}%</div>`)}
+      <div><div class="sect">Projekt</div><div style="font-weight:700">${esc(data.project.name)}</div>
+        <div class="muted">${data.project.phases.filter(p=>p.done).length}/${data.project.phases.length} fází hotovo</div></div>
+    </div>
+  </div>`;
+}
+
+function vTyden(){
+  const days=Array.from({length:7},(_,i)=>addDays(wref,i)); const total=data.habits.length;
+  const poss=total*7; const wdone=days.reduce((n,d)=>n+dayCount(fmt(d)),0); const end=addDays(wref,6);
+  return `
+  <div class="card pad">
+    <div class="row" style="justify-content:space-between;margin-bottom:16px">
+      <button class="navbtn" data-act="week" data-n="-7">${I.chevL}</button>
+      <div class="num" style="font-weight:800">${wref.getDate()}. ${wref.getMonth()+1}. – ${end.getDate()}. ${end.getMonth()+1}.</div>
+      <button class="navbtn" data-act="week" data-n="7">${I.chevR}</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px">
+      ${days.map(d=>{const dn=dayCount(fmt(d)); const isT=fmt(d)===fmt(today());
+        return `<div style="text-align:center">
+          <div style="font-size:11px;font-weight:700;margin-bottom:6px;color:${isT?'var(--primary)':'var(--sub)'}">${DOW[(d.getDay()+6)%7]}</div>
+          <div style="display:grid;place-items:center">${ring(dn,total,46,5,null,`<span class="num" style="font-size:12px;font-weight:800">${d.getDate()}</span>`)}</div>
+          <div class="muted" style="font-size:10px;margin-top:4px">${dn}/${total}</div></div>`;}).join('')}
+    </div>
+  </div>
+  <div class="card pad"><div class="sect">Souhrn týdne</div>
+    <div class="row" style="gap:18px;flex-wrap:wrap">
+      ${ring(wdone,poss,96,10,null,`<div class="num" style="font-size:20px;font-weight:800">${poss?Math.round(wdone/poss*100):0}%</div>`)}
+      <div class="muted">Celkem <b style="color:var(--ink)">${wdone}</b> z ${poss} možných odškrtnutí.</div></div>
+  </div>
+  <div class="card pad"><div class="sect">Návyky tento týden</div><div class="grid" style="gap:10px">
+    ${data.habits.map(h=>{const cnt=days.filter(d=>isDone(fmt(d),h.id)).length; return `
+      <div class="row" style="gap:12px"><span style="font-size:18px;width:24px">${h.emoji}</span>
+        <div style="flex:1"><div class="row" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
+          <span style="font-weight:600">${esc(h.name)}</span>
+          <span class="muted">${cnt}/7 · ${I.flame} ${streak(h.id)}</span></div>
+          <div class="bar"><div style="width:${cnt/7*100}%"></div></div></div></div>`;}).join('')}
+  </div></div>`;
+}
+
+function vMesic(){
+  const y=mref.getFullYear(), m=mref.getMonth(); const nd=new Date(y,m+1,0).getDate();
+  const days=Array.from({length:nd},(_,i)=>i+1); const total=data.habits.length;
+  const keyOf=day=>fmt(new Date(y,m,day)); const cw=30;
+  const last7=Array.from({length:7},(_,i)=>addDays(today(),-6+i));
+  return `
+  <div class="card pad">
+    <div class="row" style="justify-content:space-between;margin-bottom:16px">
+      <button class="navbtn" data-act="month" data-n="-1">${I.chevL}</button>
+      <div class="num" style="font-weight:800;font-size:17px;text-transform:capitalize">${MONTHS[m]} ${y}</div>
+      <button class="navbtn" data-act="month" data-n="1">${I.chevR}</button>
+    </div>
+    <div class="month-wrap"><div style="min-width:${200+nd*cw}px">
+      <div style="display:flex"><div style="width:200px;flex-shrink:0"></div>
+        ${days.map(day=>{const isT=keyOf(day)===fmt(today()); return `<div style="width:${cw}px;text-align:center;font-size:10px;font-weight:700;color:${isT?'var(--primary)':'var(--sub)'}">${day}</div>`;}).join('')}
+        <div style="width:44px;text-align:center;font-size:10px;font-weight:800;color:var(--primary-d)">Σ</div></div>
+      ${data.habits.map(h=>{const mc=days.filter(day=>isDone(keyOf(day),h.id)).length; return `
+        <div style="display:flex;align-items:center;border-top:1px solid #f1f5f9;padding:3px 0">
+          <div class="sticky-l" style="width:200px;flex-shrink:0;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding-right:8px">
+            <span>${h.emoji}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(h.name)}</span></div>
+          ${days.map(day=>{const on=isDone(keyOf(day),h.id); return `<div style="width:${cw}px;display:grid;place-items:center">
+            <button class="cellbtn ${on?'on':''}" data-act="toggle" data-date="${keyOf(day)}" data-id="${h.id}">${on?I.check:''}</button></div>`;}).join('')}
+          <div class="num" style="width:44px;text-align:center;font-weight:800;color:var(--primary-d)">${mc}</div></div>`;}).join('')}
+      <div style="display:flex;align-items:center;border-top:2px solid var(--track);padding:6px 0">
+        <div class="sticky-l" style="width:200px;flex-shrink:0;font-size:12px;font-weight:800;color:var(--sub)">Splněno / den</div>
+        ${days.map(day=>{const c=dayCount(keyOf(day)); return `<div class="num" style="width:${cw}px;text-align:center;font-size:10px;font-weight:700;color:${c===total&&total>0?'var(--good)':'var(--sub)'}">${c}</div>`;}).join('')}
+        <div style="width:44px"></div></div>
+    </div></div>
+    <div class="muted" style="font-size:11px;margin-top:8px">💡 Klikni na políčko a odškrtni i zpětně. Tabulkou jde posouvat do stran.</div>
+  </div>
+
+  <div class="card pad"><div class="sect">Posledních 7 dní</div>
+    <table><thead><tr><th style="text-align:left">Návyk</th>
+      ${last7.map(d=>`<th class="num" style="text-align:center">${d.getDate()}</th>`).join('')}<th class="num" style="color:var(--primary-d)">×/7</th></tr></thead>
+      <tbody>${data.habits.map(h=>{const cnt=last7.filter(d=>isDone(fmt(d),h.id)).length; return `<tr style="border-top:1px solid #f1f5f9">
+        <td style="font-weight:600">${h.emoji} ${esc(h.name)}</td>
+        ${last7.map(d=>`<td style="text-align:center"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${isDone(fmt(d),h.id)?'var(--primary)':'#e9eef5'}"></span></td>`).join('')}
+        <td class="num" style="text-align:center;font-weight:800;color:var(--primary-d)">${cnt}/7</td></tr>`;}).join('')}</tbody></table>
+  </div>
+
+  <div class="card pad"><div class="sect">Souhrnná tabulka</div>
+    <table><thead><tr><th style="text-align:left">Návyk</th><th>Tento měsíc</th><th>Série 🔥</th></tr></thead>
+      <tbody>${data.habits.map(h=>{const mc=days.filter(day=>isDone(keyOf(day),h.id)).length; return `<tr style="border-top:1px solid #f1f5f9">
+        <td style="font-weight:600">${h.emoji} ${esc(h.name)}</td>
+        <td class="num" style="text-align:center;font-weight:700">${mc} <span class="muted" style="font-weight:400">/ ${nd}</span></td>
+        <td class="num" style="text-align:center;font-weight:700;color:var(--primary)">${streak(h.id)}</td></tr>`;}).join('')}</tbody></table>
+  </div>`;
+}
+
+function vProjekt(){
+  const ph=data.project.phases; const done=ph.filter(p=>p.done).length;
+  return `
+  <div class="card pad row" style="gap:22px;flex-wrap:wrap">
+    ${ring(done,ph.length,130,13,'var(--primary-d)',`<div class="num" style="font-size:28px;font-weight:800">${ph.length?Math.round(done/ph.length*100):0}%</div><div class="muted">${done}/${ph.length}</div>`)}
+    <div style="flex:1;min-width:200px"><div class="sect">Název projektu</div>
+      <input class="inp" data-act="projname" value="${esc(data.project.name)}" style="width:100%;font-size:16px;font-weight:700" /></div>
+  </div>
+  <div class="card pad"><div class="sect">Fáze / milníky</div>
+    <div class="grid" style="gap:8px;margin-bottom:12px">
+      ${ph.map(p=>`<div class="todo">
+        <button class="tbox ${p.done?'on':''}" data-act="tphase" data-id="${p.id}" style="${p.done?'background:var(--primary-d)':''}">${p.done?I.check:''}</button>
+        <span style="flex:1;font-size:15px;${p.done?'text-decoration:line-through;color:var(--sub)':''}">${esc(p.name)}</span>
+        <button class="del" data-act="dphase" data-id="${p.id}">${I.trash}</button></div>`).join('')}
+    </div>
+    <div class="row" style="gap:8px">
+      <input id="phaseInput" class="inp" placeholder="Přidat fázi…" />
+      <button class="addbtn" data-act="addphase" style="padding:0 16px">${I.plus}</button></div>
+  </div>`;
+}
+
+function vNastaveni(){
+  return `
+  <div class="card pad"><div class="sect">Tvoje návyky</div>
+    <div class="grid" style="gap:8px;margin-bottom:14px">
+      ${data.habits.map(h=>`<div class="row" style="gap:8px">
+        <input class="inp" data-act="hemoji" data-id="${h.id}" value="${esc(h.emoji)}" style="width:44px;flex:none;text-align:center;font-size:18px" maxlength="2" />
+        <input class="inp" data-act="hname" data-id="${h.id}" value="${esc(h.name)}" />
+        <button class="del" data-act="dhabit" data-id="${h.id}" style="color:#ef4444">${I.trash}</button></div>`).join('')}
+    </div>
+    <div class="row" style="gap:8px">
+      <input id="newEmoji" class="inp" value="✅" maxlength="2" style="width:44px;flex:none;text-align:center;font-size:18px" />
+      <input id="newName" class="inp" placeholder="Nový návyk…" />
+      <button class="addbtn" data-act="addhabit" style="padding:0 16px">${I.plus}</button></div>
+  </div>
+  <div class="card pad"><div class="sect">Záloha dat</div>
+    <p class="muted" style="margin-top:0">Data se ukládají automaticky v tomhle zařízení. Pro jistotu si je můžeš stáhnout jako soubor.</p>
+    <button class="btn-dark" data-act="export">${I.dl} Stáhnout zálohu (.json)</button>
+  </div>`;
+}
+
+/* ===== nav ===== */
+const NAV=[['dnes','Dnes',I.home],['tyden','Týden',I.cal],['mesic','Měsíc',I.bar],['projekt','Projekt',I.rocket],['nastaveni','Nastavení',I.gear]];
+function renderNav(){
+  document.getElementById('deskTabs').innerHTML = NAV.map(([id,l,ic])=>`<button class="${tab===id?'on':''}" data-act="tab" data-tab="${id}">${ic}<span>${l}</span></button>`).join('');
+  document.getElementById('mobNav').innerHTML = NAV.map(([id,l,ic])=>`<button class="${tab===id?'on':''}" data-act="tab" data-tab="${id}">${ic}<span>${l}</span></button>`).join('');
+}
+function render(){
+  renderNav();
+  const v=document.getElementById('view');
+  v.innerHTML = tab==='dnes'?vDnes(): tab==='tyden'?vTyden(): tab==='mesic'?vMesic(): tab==='projekt'?vProjekt(): vNastaveni();
+}
+
+/* ===== events ===== */
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-act]'); if(!b)return; const a=b.dataset;
+  switch(a.act){
+    case 'tab': tab=a.tab; render(); break;
+    case 'day': sel=fmt(addDays(new Date(sel+'T00:00:00'),+a.n)); render(); break;
+    case 'today': sel=fmt(today()); render(); break;
+    case 'toggle': toggleHabit(a.date,a.id); break;
+    case 'addtodo': {const i=document.getElementById('todoInput'); addTodo(a.date,i.value);} break;
+    case 'ttodo': toggleTodo(a.date,a.id); break;
+    case 'dtodo': delTodo(a.date,a.id); break;
+    case 'week': wref=addDays(wref,+a.n); render(); break;
+    case 'month': mref=new Date(mref.getFullYear(),mref.getMonth()+(+a.n),1); render(); break;
+    case 'tphase': togglePhase(a.id); break;
+    case 'dphase': delPhase(a.id); break;
+    case 'addphase': {const i=document.getElementById('phaseInput'); addPhase(i.value);} break;
+    case 'dhabit': delHabit(a.id); break;
+    case 'addhabit': {const n=document.getElementById('newName'),e=document.getElementById('newEmoji'); addHabit(n.value,e.value);} break;
+    case 'export': exportData(); break;
+  }
+});
+document.addEventListener('input',ev=>{
+  const t=ev.target.closest('[data-act]'); if(!t)return; const a=t.dataset;
+  if(a.act==='note') setNote(a.date,t.value);
+  else if(a.act==='projname'){ data.project.name=t.value; save(); }
+  else if(a.act==='hname') editHabit(a.id,'name',t.value);
+  else if(a.act==='hemoji') editHabit(a.id,'emoji',t.value.slice(0,2));
+});
+document.addEventListener('keydown',ev=>{
+  if(ev.key!=='Enter')return; const id=ev.target.id;
+  if(id==='todoInput'){ addTodo(sel,ev.target.value); }
+  else if(id==='phaseInput'){ addPhase(ev.target.value); }
+  else if(id==='newName'||id==='newEmoji'){ const n=document.getElementById('newName'),e=document.getElementById('newEmoji'); addHabit(n.value,e.value); }
+});
+
+render();
+</script>
+</body>
+</html>
